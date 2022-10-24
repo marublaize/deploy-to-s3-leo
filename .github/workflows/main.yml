@@ -11,9 +11,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Deploy to S3
-        env:
-          aws-bucket-name: deploy-to-s3-leo
         run: |
           sudo apt update && sudo apt install --no-install-recommends awscli
-          aws s3 sync . s3://$aws-bucket-name --delete --acl public-read
+          aws s3 sync . s3://deploy-to-s3-leo --delete --acl public-read
           echo "Deploy completed"
