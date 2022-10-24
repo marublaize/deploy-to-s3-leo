@@ -1,0 +1,7 @@
+- name: AWS Deploy S3
+  uses: oneyedev/aws-deploy-s3@v2
+  with:
+    region: us-east-1
+    bucket: deploy-to-s3-leo
+    source: .
+    target: .
