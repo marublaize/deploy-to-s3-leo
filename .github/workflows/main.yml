@@ -4,6 +4,15 @@ jobs:
   deploy-to-s3-leo:
     runs-on: ubuntu-latest
     steps:
-      - run: sudo apt update && sudo apt install --no-install-recommends awscli
-      - run: aws s3 sync . s3://deploy-to-s3-leo --delete --acl public-read
-      - run: echo "Deploy completed"
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+          aws-bucket-name: deploy-to-s3-leo
+      - name: Deploy to S3
+        run: |
+          sudo apt update && sudo apt install --no-install-recommends awscli
+          aws s3 sync . s3://$AWS_BUCKET_NAME --delete --acl public-read
+          echo "Deploy completed"
