@@ -1,5 +1,5 @@
 name: AWS Deploy S3
-on: [push]
+on: [push, workflow_dispatch]
 jobs:
   deploy-to-s3-leo:
     runs-on: ubuntu-latest
