@@ -1,0 +1,28 @@
+version: '3.0'
+
+services:
+  nginx-proxy:
+    image: nginx-proxy
+    build:
+      context: ./nginx-proxy
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - node-app1
+      - node-app2
+
+  node-app1:
+    image: node-app1
+    build:
+      context: ./node-app1
+      dockerfile: Dockerfile
+    restart: always
+
+  node-app2:
+    image: node-app2
+    build:
+      context: ./node-app2
+      dockerfile: Dockerfile
+    restart: always

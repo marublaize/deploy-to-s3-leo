@@ -12,8 +12,12 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      - name: Build application
+        run: |
+          npm install
+          npm run build
       - name: Deploy to S3
         run: |
           sudo apt update && sudo apt install --no-install-recommends awscli
-          aws s3 sync . s3://deploy-to-s3-leo --delete --acl public-read
+          aws s3 sync ./build s3://deploy-to-s3-leo --delete --acl public-read
           echo "Deploy completed"
